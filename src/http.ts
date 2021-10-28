@@ -1,3 +1,4 @@
+import { Handler } from '.';
 import { Context } from './context';
 
 /** See: https://cloud.yandex.ru/docs/functions/concepts/function-invoke#request */
@@ -19,7 +20,7 @@ export interface HttpResponse {
   body?: string;
 }
 
-export type HttpHandler = (request: HttpRequest, context: Context) => HttpResponse | Promise<HttpResponse>;
+export type HttpHandler = Handler<HttpRequest, HttpResponse>;
 
 export function isHttpRequest(event: unknown): event is HttpRequest {
   return Boolean((event as HttpRequest).httpMethod);

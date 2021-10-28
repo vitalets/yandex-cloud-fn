@@ -2,7 +2,7 @@
  * Интеграция с Алисой.
  */
 import { ReqBody, ResBody } from 'alice-types';
-import { Context } from './context';
+import { Handler } from '.';
 
 export function isAliceRequest(event: unknown): event is AliceRequest {
   return Boolean((event as AliceRequest).request);
@@ -10,4 +10,4 @@ export function isAliceRequest(event: unknown): event is AliceRequest {
 
 export type AliceRequest = ReqBody;
 export type AliceResponse = ResBody;
-export type AliceHandler = (request: AliceRequest, context: Context) => AliceResponse | Promise<AliceResponse>;
+export type AliceHandler = Handler<AliceRequest, AliceResponse>;
