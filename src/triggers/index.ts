@@ -1,3 +1,4 @@
+import { Context } from '../context';
 import { StorageMessage } from './storage';
 import { TimerMessage } from './timer';
 import { YmqMessage } from './ymq';
@@ -9,7 +10,7 @@ export interface TriggerRequest {
   messages: TriggerMessage[];
 }
 export type TriggerResponse = void;
-
+export type TriggerHandler = (request: TriggerMessage, context: Context) => TriggerResponse | Promise<TriggerResponse>;
 export function isTriggerRequest(event: unknown): event is TriggerRequest {
   return Array.isArray((event as TriggerRequest).messages);
 }
