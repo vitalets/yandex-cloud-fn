@@ -1,7 +1,7 @@
 {
   "name": "yandex-cloud-fn",
   "description": "Helpers for Yandex Cloud function Node.js runtime",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "dist/index.js",
   "files": [
     "src",
