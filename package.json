@@ -23,6 +23,9 @@
   "engines": {
     "node": ">=14"
   },
+  "dependencies": {
+    "alice-types": "^1.3.0"
+  },
   "devDependencies": {
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.11.1",
@@ -42,8 +45,5 @@
     "type": "git",
     "url": "git://github.com/vitalets/yandex-cloud-fn.git"
   },
-  "license": "MIT",
-  "dependencies": {
-    "alice-types": "^1.3.0"
-  }
+  "license": "MIT"
 }
