@@ -9,5 +9,6 @@ export function isAliceRequest(event: unknown): event is AliceRequest {
 }
 
 export type AliceRequest = ReqBody;
-export type AliceResponse = ResBody;
+// Use fake Omit to have 'AliceResponse' in TS messages.
+export type AliceResponse = Omit<ResBody, ''>;
 export type AliceHandler = Handler<AliceRequest, AliceResponse>;
