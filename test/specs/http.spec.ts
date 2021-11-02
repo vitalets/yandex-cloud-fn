@@ -25,15 +25,6 @@ describe('http', () => {
     assert.equal(Serverless.getHttpBody(event), 'Hello World');
   });
 
-  it('getHttpBodyJson', () => {
-    const event = {
-      ...buildEvent(),
-      isBase64Encoded: false,
-      body: '{"foo": 42}'
-    };
-    assert.deepEqual(Serverless.getHttpBodyJson(event), { foo: 42 });
-  });
-
   it('sendJson', () => {
     const data = { foo: 42 };
     assert.deepEqual(Serverless.sendJson(data), {

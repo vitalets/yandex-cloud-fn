@@ -2,6 +2,8 @@
  * See: https://cloud.yandex.ru/docs/functions/concepts/trigger/ymq-trigger#ymq-format
  */
 
+import { isTriggerRequest, TriggerRequest } from '.';
+
 export interface YmqMessage {
   event_metadata: {
     event_id: string;
@@ -19,4 +21,10 @@ export interface YmqMessage {
       md5_of_message_attributes: string;
     }
   };
+}
+
+export type YmqRequest = TriggerRequest<YmqMessage>;
+
+export function isYmqRequest(event: unknown): event is YmqRequest {
+  return isTriggerRequest(event) && Boolean((event.messages[0] as YmqMessage)?.details?.queue_id);
 }

@@ -1,4 +1,3 @@
-import { Handler } from '.';
 import { Context } from './context';
 
 /** See: https://cloud.yandex.ru/docs/functions/concepts/function-invoke#request */
@@ -20,8 +19,6 @@ export interface HttpResponse {
   body?: string;
 }
 
-export type HttpHandler = Handler<HttpRequest, HttpResponse>;
-
 export function isHttpRequest(event: unknown): event is HttpRequest {
   return Boolean((event as HttpRequest).httpMethod);
 }
@@ -29,11 +26,6 @@ export function isHttpRequest(event: unknown): event is HttpRequest {
 export function getHttpBody(event: HttpRequest): string {
   const { body, isBase64Encoded } = event;
   return isBase64Encoded ? decodeBase64(body) : body;
-}
-
-export function getHttpBodyJson(event: HttpRequest): unknown {
-  const body = getHttpBody(event);
-  return JSON.parse(body);
 }
 
 export function sendJson(data: unknown): HttpResponse {

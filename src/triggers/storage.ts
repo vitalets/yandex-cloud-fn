@@ -2,6 +2,8 @@
  * See: https://cloud.yandex.ru/docs/functions/concepts/trigger/os-trigger#ymq-format
  */
 
+import { isTriggerRequest, TriggerRequest } from '.';
+
 export interface StorageMessage {
   event_metadata: {
     event_id: string;
@@ -19,4 +21,10 @@ export interface StorageMessage {
     bucket_id: string;
     object_id: string;
   };
+}
+
+export type StorageRequest = TriggerRequest<StorageMessage>;
+
+export function isStorageRequest(event: unknown): event is StorageRequest {
+  return isTriggerRequest(event) && Boolean((event.messages[0] as StorageMessage)?.details?.bucket_id);
 }
