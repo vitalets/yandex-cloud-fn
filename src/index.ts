@@ -2,6 +2,8 @@ export * from './http';
 export * from './triggers';
 export * from './alice';
 export * from './context';
+export * from './logs';
+export * from './env';
 
 import { Context } from './context';
 import { HttpRequest, HttpResponse } from './http';
