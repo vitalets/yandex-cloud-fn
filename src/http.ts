@@ -28,9 +28,9 @@ export function getHttpBody(event: HttpRequest): string {
   return isBase64Encoded ? decodeBase64(body) : body;
 }
 
-export function sendJson(data: unknown): HttpResponse {
+export function sendJson(data: unknown, statusCode = 200): HttpResponse {
   return {
-    statusCode: 200,
+    statusCode,
     headers: {
       'Content-Type': 'application/json',
     },
