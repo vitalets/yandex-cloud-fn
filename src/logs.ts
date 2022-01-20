@@ -18,4 +18,22 @@ export function fixValueForLogging<T>(val: T) {
     : val;
 }
 
-// todo: instrumentConsoleForLogging()
+let consoleFixed = false;
+
+/**
+ * Instruments all console methods to replace '\n' for yandex cloud correct logs.
+ */
+export function fixConsoleForLogging() {
+  if (!isYandexCloudEnv || consoleFixed) return;
+  const methods = [ 'debug', 'log', 'info', 'warn', 'error', 'time', 'timeLog', 'timeEnd' ] as const;
+  for (const method of methods) {
+    // eslint-disable-next-line no-console
+    const orig = console[method];
+    // eslint-disable-next-line no-console, @typescript-eslint/no-explicit-any
+    console[method] = (...args: any[]) => {
+      orig.apply(console, args.map(a => fixValueForLogging(a)));
+    };
+  }
+  consoleFixed = true;
+}
+
