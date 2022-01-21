@@ -1,11 +1,12 @@
 # yandex-cloud-fn
-Хелперы для функций в Yandex Cloud (Node.js).
+Runtime-хелперы для Node.js функций в Yandex Cloud.
 
 ## Что включает
 * покрытие типами: `event`, `context`, итд
 * определение источника запроса: `isHttpRequest`, `isTimerRequest`, итд
 * получение тела запроса (с учетом base64): `getHttpBody`
 * отправка json ответа: `sendJson`
+* корректное логирование: `fixConsoleForLogging`, `fixErrorForLogging`.
 
 ## Установка
 ```
@@ -27,6 +28,9 @@ export const handler: Handler<HttpRequest | TimerRequest> = async event => {
 }
 ```
 Больше примеров в папке [/examples](/examples).
+
+## Доступные методы
+tbd
 
 ## Лицензия
 MIT @ [Vitaliy Potapov](https://github.com/vitalets)
