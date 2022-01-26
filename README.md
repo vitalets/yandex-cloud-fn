@@ -6,7 +6,7 @@ Runtime-хелперы для Node.js функций в Yandex Cloud.
 * определение источника запроса: `isHttpRequest`, `isTimerRequest`, итд
 * получение тела запроса (с учетом base64): `getHttpBody`
 * отправка json ответа: `sendJson`
-* корректное логирование: `fixConsoleForLogging`, `fixErrorForLogging`.
+* корректное логирование: `fixConsoleForLogging`, `fixValueForLogging`.
 
 ## Установка
 ```

@@ -6,16 +6,11 @@
 
 import { isYandexCloudEnv } from './env';
 
-export function fixErrorForLogging(e: Error) {
-  if (e?.message) e.message = fixValueForLogging(e.message);
-  if (e?.stack) e.stack = fixValueForLogging(e.stack);
-  return e;
-}
-
 export function fixValueForLogging<T>(val: T) {
-  return isYandexCloudEnv && typeof val === 'string'
-    ? val.replace(/\n/g, '\r ')
-    : val;
+  if (!isYandexCloudEnv) return val;
+  if (typeof val === 'string') return val.replace(/\n/g, '\r ');
+  if (val instanceof Error) return val.stack?.replace(/\n/g, '\r ') || val;
+  return val;
 }
 
 let consoleFixed = false;
