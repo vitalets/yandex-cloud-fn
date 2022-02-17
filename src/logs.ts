@@ -6,10 +6,14 @@
 
 import { isYandexCloudEnv } from './env';
 
+const LOG_NEWLINE = '\r ';
+
+// eslint-disable-next-line complexity
 export function fixValueForLogging<T>(val: T) {
   if (!isYandexCloudEnv) return val;
-  if (typeof val === 'string') return val.replace(/\n/g, '\r ');
-  if (val instanceof Error) return val.stack?.replace(/\n/g, '\r ') || val;
+  if (val instanceof Error) return val.stack?.replace(/\n/g, LOG_NEWLINE) || val;
+  if (typeof val === 'string') return val.replace(/\n/g, LOG_NEWLINE);
+  if (val && typeof val === 'object') return stringifySafe(val);
   return val;
 }
 
@@ -32,3 +36,10 @@ export function fixConsoleForLogging() {
   consoleFixed = true;
 }
 
+function stringifySafe<T>(value: T) {
+  try {
+    return JSON.stringify(value);
+  } catch (e) {
+    return value;
+  }
+}
