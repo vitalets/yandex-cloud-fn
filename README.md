@@ -10,7 +10,7 @@ Runtime-хелперы для Node.js функций в Yandex Cloud.
 
 ## Установка
 ```
-npm i -D yandex-cloud-fn
+npm i yandex-cloud-fn
 ```
 
 ## Использование
