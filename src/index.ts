@@ -11,10 +11,12 @@ import { Context } from './context';
 import { HttpRequest, HttpResponse } from './http';
 import { AliceRequest, AliceResponse } from './alice';
 import { SmarthomeRequest, SmarthomeResponse } from './smarthome';
+import { WebsocketRequest } from './ws';
 
 // todo: map types dynamically?
 // see: https://fettblog.eu/typescript-type-maps/
 export type Response<Req> =
+  Req extends WebsocketRequest ? void :
   Req extends HttpRequest ? HttpResponse :
   Req extends AliceRequest ? AliceResponse :
   Req extends SmarthomeRequest ? SmarthomeResponse :

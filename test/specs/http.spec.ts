@@ -37,7 +37,7 @@ describe('http', () => {
     });
   });
 
-  it('get ws connection id', () => {
+  it('websocket', () => {
     const event = {
       ...buildEvent(),
       isBase64Encoded: false,
@@ -54,23 +54,45 @@ describe('http', () => {
     }
   });
 
-  function buildEvent() {
-    return {
-      httpMethod: 'GET',
-      headers: {},
-      multiValueHeaders: {},
-      queryStringParameters: {},
-      multiValueQueryStringParameters: {},
-      requestContext: {
-        requestId: '1',
-        identity: { sourceIp: '141.136.91.132', userAgent: 'Go-http-client/1.1' },
-        httpMethod: 'GET',
-        requestTime: '7/Dec/2022:06:31:58 +0000',
-        requestTimeEpoch: 1670394718
-      },
-      isBase64Encoded: false,
-      body: '',
-      path: ''
+  it('handler', async () => {
+    const handler: Serverless.Handler<Serverless.HttpRequest | Serverless.WebsocketRequest> = async event => {
+      if (Serverless.isWebsocketRequest(event)) {
+        // dont return anything
+      } else {
+        return Serverless.sendJson({ foo: 42 });
+      }
     };
-  }
+    const response = await handler(buildEvent(), buildContext());
+    assert.equal((response as Serverless.HttpResponse).body, '{"foo":42}');
+  });
+
 });
+
+function buildEvent() {
+  return {
+    httpMethod: 'GET',
+    headers: {},
+    multiValueHeaders: {},
+    queryStringParameters: {},
+    multiValueQueryStringParameters: {},
+    requestContext: {
+      requestId: '1',
+      identity: { sourceIp: '141.136.91.132', userAgent: 'Go-http-client/1.1' },
+      httpMethod: 'GET',
+      requestTime: '7/Dec/2022:06:31:58 +0000',
+      requestTimeEpoch: 1670394718
+    },
+    isBase64Encoded: false,
+    body: '',
+    path: ''
+  };
+}
+
+function buildContext() {
+  return {
+    requestId: '1',
+    functionName: '2',
+    functionVersion: '3',
+    memoryLimitInMB: '4',
+  };
+}
