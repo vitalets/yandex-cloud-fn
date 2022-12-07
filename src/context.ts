@@ -1,4 +1,6 @@
-/** see: https://cloud.yandex.ru/docs/functions/concepts/function-invoke#service-data */
+/**
+ * See: https://cloud.yandex.ru/docs/functions/concepts/function-invoke#service-data
+ */
 export interface Context {
   requestId: string;
   functionName: string;

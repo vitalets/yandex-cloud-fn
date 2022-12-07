@@ -39,19 +39,21 @@ describe('http', () => {
 
   function buildEvent() {
     return {
-      httpMethod: 'get',
+      httpMethod: 'GET',
       headers: {},
       multiValueHeaders: {},
       queryStringParameters: {},
       multiValueQueryStringParameters: {},
       requestContext: {
         requestId: '1',
-        functionName: '2',
-        functionVersion: '3',
-        memoryLimitInMB: '10',
+        identity: { sourceIp: '141.136.91.132', userAgent: 'Go-http-client/1.1' },
+        httpMethod: 'GET',
+        requestTime: '7/Dec/2022:06:31:58 +0000',
+        requestTimeEpoch: 1670394718
       },
       isBase64Encoded: false,
-      body: ''
+      body: '',
+      path: ''
     };
   }
 });

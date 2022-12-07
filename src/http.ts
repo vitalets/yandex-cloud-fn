@@ -1,4 +1,4 @@
-import { Context } from './context';
+import { RequestContextWebsocket } from './ws.js';
 
 /** See: https://cloud.yandex.ru/docs/functions/concepts/function-invoke#request */
 export interface HttpRequest {
@@ -7,9 +7,27 @@ export interface HttpRequest {
   multiValueHeaders: Record<string, string[]>;
   queryStringParameters: Record<string, string>;
   multiValueQueryStringParameters: Record<string, string[]>;
-  requestContext: Context;
+  requestContext: RequestContext;
   body: string;
   isBase64Encoded: boolean;
+  path: string;
+}
+
+/**
+ * Request context is not the same as Context.
+ * See: https://cloud.yandex.ru/docs/functions/concepts/function-invoke#request
+ */
+export type RequestContext = RequestContextHttp | RequestContextWebsocket;
+
+export interface RequestContextHttp {
+  identity: {
+    sourceIp: string;
+    userAgent: string;
+  }
+  requestId: string;
+  requestTime: string;
+  requestTimeEpoch: number;
+  httpMethod: string;
 }
 
 export interface HttpResponse {
