@@ -1,4 +1,4 @@
-import { HttpRequest, isHttpRequest } from './http';
+import { HttpRequest } from './http';
 
 export interface WebsocketRequest extends HttpRequest {
   requestContext: WebsocketConnect | WebsocketMessage | WebsocketDisconnect
@@ -10,6 +10,9 @@ interface WebsocketCommon extends HttpRequestContext {
   connectionId: string;
   connectedAt: number;
 }
+
+// todo: CONNECT has event.httpMethod = 'GET', but MESSAGE and DISCONNECT
+// dont have event.httpMethod but have event.requestContext.httpMethod
 
 export interface WebsocketConnect extends WebsocketCommon {
   eventType: 'CONNECT'
@@ -27,5 +30,5 @@ export interface WebsocketDisconnect extends WebsocketCommon {
 }
 
 export function isWebsocketRequest(event: unknown): event is WebsocketRequest {
-  return isHttpRequest(event) && 'connectionId' in event.requestContext;
+  return Boolean((event as WebsocketRequest)?.requestContext?.connectionId);
 }

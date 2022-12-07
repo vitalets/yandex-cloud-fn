@@ -34,7 +34,7 @@ export interface HttpResponse {
 }
 
 export function isHttpRequest(event: unknown): event is HttpRequest {
-  return Boolean((event as HttpRequest).httpMethod);
+  return Boolean((event as HttpRequest)?.httpMethod);
 }
 
 export function getHttpBody(event: HttpRequest): string {
