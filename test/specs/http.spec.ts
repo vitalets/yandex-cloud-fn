@@ -58,7 +58,8 @@ describe('http', () => {
   it('handler', async () => {
     const handler: Serverless.Handler<Serverless.HttpRequest | Serverless.WebsocketRequest> = async event => {
       if (Serverless.isWebsocketRequest(event)) {
-        // dont return anything
+        // return empty response in HTTP format (todo: clarify with yandex team)
+        return Serverless.sendJson({ });
       } else {
         return Serverless.sendJson({ foo: 42 });
       }
