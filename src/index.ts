@@ -2,6 +2,7 @@ export * from './context';
 export * from './logs';
 export * from './env';
 export * from './http';
+export * from './ws';
 export * from './triggers';
 export * from './alice';
 export * from './smarthome';

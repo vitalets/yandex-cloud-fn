@@ -1,9 +1,12 @@
-import { RequestContextHttp } from './http.js';
+import { HttpRequest, isHttpRequest } from './http';
 
-export type RequestContextWebsocket =
-  WebsocketConnect | WebsocketMessage | WebsocketDisconnect;
+export interface WebsocketRequest extends HttpRequest {
+  requestContext: WebsocketConnect | WebsocketMessage | WebsocketDisconnect
+}
 
-interface WebsocketCommon extends RequestContextHttp {
+type HttpRequestContext = HttpRequest['requestContext'];
+
+interface WebsocketCommon extends HttpRequestContext {
   connectionId: string;
   connectedAt: number;
 }
@@ -21,4 +24,8 @@ export interface WebsocketDisconnect extends WebsocketCommon {
   eventType: 'DISCONNECT'
   disconnectStatusCode: number;
   disconnectReason: string;
+}
+
+export function isWebsocketRequest(event: unknown): event is WebsocketRequest {
+  return isHttpRequest(event) && 'connectionId' in event.requestContext;
 }

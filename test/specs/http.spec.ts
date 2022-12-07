@@ -37,6 +37,23 @@ describe('http', () => {
     });
   });
 
+  it('get ws connection id', () => {
+    const event = {
+      ...buildEvent(),
+      isBase64Encoded: false,
+      body: 'foo'
+    } as Serverless.WebsocketRequest;
+    Object.assign(event.requestContext, {
+      connectionId: '123',
+      eventType: 'MESSAGE',
+      messageId: '42'
+    });
+    assert.equal(Serverless.isWebsocketRequest(event), true);
+    if (event.requestContext.eventType === 'MESSAGE') {
+      assert.equal(event.requestContext.messageId, '42');
+    }
+  });
+
   function buildEvent() {
     return {
       httpMethod: 'GET',

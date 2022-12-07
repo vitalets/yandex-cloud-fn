@@ -1,5 +1,3 @@
-import { RequestContextWebsocket } from './ws.js';
-
 /** See: https://cloud.yandex.ru/docs/functions/concepts/function-invoke#request */
 export interface HttpRequest {
   httpMethod: string;
@@ -17,9 +15,7 @@ export interface HttpRequest {
  * Request context is not the same as Context.
  * See: https://cloud.yandex.ru/docs/functions/concepts/function-invoke#request
  */
-export type RequestContext = RequestContextHttp | RequestContextWebsocket;
-
-export interface RequestContextHttp {
+export interface RequestContext {
   identity: {
     sourceIp: string;
     userAgent: string;
