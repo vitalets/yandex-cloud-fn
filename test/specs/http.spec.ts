@@ -51,6 +51,7 @@ describe('http', () => {
     assert.equal(Serverless.isWebsocketRequest(event), true);
     if (event.requestContext.eventType === 'MESSAGE') {
       assert.equal(event.requestContext.messageId, '42');
+      assert.equal(Serverless.getHttpBody(event), 'foo');
     }
   });
 
